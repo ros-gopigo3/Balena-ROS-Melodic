@@ -1,0 +1,40 @@
+FROM balenalib/%%BALENA_MACHINE_NAME%%-ubuntu:bionic
+
+RUN export DEBIAN_FRONTEND=noninteractive
+
+RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu bionic main" > /etc/apt/sources.list.d/ros-latest.list'
+RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+
+RUN ln -fs /usr/share/zoneinfo/Europe/Madrid /etc/localtime
+RUN apt-get update && apt-get install -y tzdata
+RUN dpkg-reconfigure --frontend noninteractive tzdata
+
+#apt-get install -y apt-utils
+
+# ROS installation
+RUN apt-get install -y python-rosinstall python-rosinstall-generator python-wstool build-essential
+RUN apt-get install -y python-rosdep
+RUN apt-get install -y ros-melodic-ros-base
+
+# Install catkin tools
+# RUN apt-get install -y python-catkin-tools
+
+# Ensure that you are communicating to the host OS systemd and not the systemd in your container
+# https://www.balena.io/docs/learn/develop/runtime/
+ENV DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
+# Single container applications always use host networking, hence
+#  => all ports are exposed if the host is accessible
+
+COPY ./ros /ros
+WORKDIR /ros/catkin_ws
+
+# WARNING: Running 'rosdep update' as root is not recommended.
+# You should run 'sudo rosdep fix-permissions' and invoke 'rosdep update' again without sudo
+RUN rosdep init && rosdep update
+
+RUN echo source /opt/ros/melodic/setup.bash >> ~/.bashrc
+
+COPY start.sh /ros/
+
+CMD ["bash", "/ros/start.sh"]
+#CMD sleep infinity # If wanted to do anything

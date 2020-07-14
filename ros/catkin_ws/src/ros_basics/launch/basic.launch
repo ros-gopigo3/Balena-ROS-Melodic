@@ -1,0 +1,7 @@
+<launch>
+    <!-- Publisher node -->
+    <node pkg="ros_basics" name="publisher" type="topic_publisher.py" output="screen"/>
+    
+    <!-- Subcriber node -->
+    <node pkg="ros_basics" name="subscriber" type="topic_subscriber.py" output="screen"/>
+</launch>
