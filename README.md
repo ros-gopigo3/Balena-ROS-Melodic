@@ -30,3 +30,6 @@ It adds to the Raspberry Pi the code used in the book "Hands on ROS for Robotics
 
 - To push the Docker container to the Balena device you have to specify the source branch:
 >`$ git push balena gopigo3:master`
+
+**NOTE:** *If you are switching the source repository for your Balena app, you have to force the push to avoid rejection:*
+>`$ git push balena gopigo3:master -f`

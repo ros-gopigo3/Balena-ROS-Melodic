@@ -19,6 +19,9 @@ RUN apt-get install -y ros-melodic-ros-base
 # Install catkin tools
 # RUN apt-get install -y python-catkin-tools
 
+# Install needed ROS packages dependencies
+sudo apt install ros-melodic-image-transport-plugins
+
 # Ensure that you are communicating to the host OS systemd and not the systemd in your container
 # https://www.balena.io/docs/learn/develop/runtime/
 ENV DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
