@@ -24,6 +24,7 @@ RUN apt-get install -y ros-melodic-image-transport-plugins
 RUN apt-get install -y ros-melodic-camera-info-manager ros-melodic-diagnostic-updater
 
 # Some dependencies are not recognized by ROS, required for raspicam_node
+RUM mkdir -p /etc/ros/rosdep/sources.list.d/
 RUN echo 'yaml https://raw.githubusercontent.com/UbiquityRobotics/rosdep/master/raspberry-pi.yaml' > /etc/ros/rosdep/sources.list.d/30-ubiquity.list
 
 # Ensure that you are communicating to the host OS systemd and not the systemd in your container
