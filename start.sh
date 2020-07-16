@@ -20,8 +20,10 @@ source /opt/ros/melodic/setup.bash
 cd /ros/catkin_ws/src
 catkin_init_workspace
 
-# Build workspace
 cd /ros/catkin_ws
+# This line install the raspicam_node dependencies
+rosdep install --from-paths src --ignore-src --rosdistro=melodic -y
+# Build workspace
 catkin_make
 echo "Sourcing workspace configuration..."
 source /ros/catkin_ws/devel/setup.bash
