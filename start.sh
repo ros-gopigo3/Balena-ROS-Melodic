@@ -3,7 +3,7 @@
 echo 127.0.0.1 `hostname` >> /etc/hosts
 
 # Put here the local IP of the host device (robot)
-export HOST_IP=192.168.1.105 # localhost # 7c85ba5
+export HOST_IP=192.168.61.209 # localhost # 7c85ba5
 
 export ROS_HOSTNAME=${HOST_IP} 
 echo export ROS_HOSTNAME=${HOST_IP} >> ~/.bashrc
