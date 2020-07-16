@@ -13,3 +13,20 @@ There is another launch publishing in the same topic `counter` to test ROS netwo
 
 ## [What is balenaOS?](https://www.balena.io/os/docs/)
 It's a Linux distribution for SBCs like Raspberry Pi, that has been designed to include the minimal set of required components to reliably support operation of the Docker engine in embedded scenarios. It uses the **Yocto** framework as a foundation, `systemd` as the *init system*.
+
+# Sample ROS packages
+## Master branch
+- Add the Balena remote of your app:
+>`$ git remote add balena  g_bernardo_ronquillo@git.balena-cloud.com:g_bernardo_ronquillo/ros-melodic_bionic.git`
+
+- Then push the Docker container to the Balena device:
+>`$ git push balena master`
+
+## GoPiGo3 branch
+It adds to the Raspberry Pi the code used in the book "Hands on ROS for Robotics Programming" published by Packt Pub https://www.packtpub.com/iot-hardware/hands-on-ros-for-robotics-programming
+
+- First checkout the branch:
+>`$ git checkout gopigo3`
+
+- To push the Docker container to the Balena device you have to specify the source branch:
+>`$ git push balena gopigo3:master`
