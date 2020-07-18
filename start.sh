@@ -40,4 +40,6 @@ echo source /ros/catkin_ws/devel/setup.bash >> ~/.bashrc
 echo "Sample roslaunch basic.launch"
 echo -e 'ROS_HOSTNAME= ' $ROS_HOSTNAME
 echo -e 'ROS_MASTER_URI= ' $ROS_MASTER_URI
-roslaunch ros_basics basic.launch
+
+# Exit to terminal
+#roslaunch ros_basics basic.launch
