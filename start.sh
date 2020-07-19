@@ -5,14 +5,14 @@ echo 127.0.0.1 `hostname` >> /etc/hosts
 # Put here the local IP of the host device (robot)
 export LANIFACE=$(ip route get 1.1.1.1 | grep -Po '(?<=dev\s)\w+' | cut -f1 -d ' ')
 export HOST_IP=$(ifconfig ${LANIFACE} | awk '/inet / {print $2}')
-echo 'My local IP address is '${HOST_IP}
 
 export ROS_HOSTNAME=${HOST_IP} 
 echo export ROS_HOSTNAME=${HOST_IP} >> ~/.bashrc
 
-# Default ROS master port is 11311. Use 80 to access over the internet
-export ROS_MASTER_URI=http://${HOST_IP}:80
-echo export ROS_MASTER_URI=http://${HOST_IP}:80 >> ~/.bashrc
+# Default ROS master port is 11311
+#  - You could use 80 if accessing over the internet: roscore -p 80
+export ROS_MASTER_URI=http://${HOST_IP}:11311
+echo export ROS_MASTER_URI=http://${HOST_IP}:11311 >> ~/.bashrc
 
 # Source ROS configuration
 echo "Sourcing ROS Melodic configuration..."
@@ -31,18 +31,19 @@ echo "Sourcing workspace configuration..."
 source /ros/catkin_ws/devel/setup.bash
 echo source /ros/catkin_ws/devel/setup.bash >> ~/.bashrc
 
-# Start up the ROS server
-#echo "Starting roscore..."
-#roscore -p 80 &
-#sleep 3
-
 #sleep infinity
 
-# Sample roslaunch
-echo "Sample roslaunch basic.launch"
+echo 'My local IP address is '${HOST_IP}
 echo -e 'ROS_HOSTNAME= ' $ROS_HOSTNAME
 echo -e 'ROS_MASTER_URI= ' $ROS_MASTER_URI
 
+
+## UNCOMMENT TO LAUNCH ROS & BE THE DOCKER PROCESS
+# Sample roslaunch
+# echo "Sample roslaunch basic.launch"
+#roslaunch ros_basics basic.launch
+
 # Exit to terminal
 bash
-#roslaunch ros_basics basic.launch
+
+
