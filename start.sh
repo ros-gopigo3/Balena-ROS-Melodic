@@ -42,4 +42,5 @@ echo -e 'ROS_HOSTNAME= ' $ROS_HOSTNAME
 echo -e 'ROS_MASTER_URI= ' $ROS_MASTER_URI
 
 # Exit to terminal
+bash
 #roslaunch ros_basics basic.launch
