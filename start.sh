@@ -3,7 +3,9 @@
 echo 127.0.0.1 `hostname` >> /etc/hosts
 
 # Put here the local IP of the host device (robot)
-export HOST_IP=192.168.61.209 # localhost # 7c85ba5
+export LANIFACE=$(ip route get 1.1.1.1 | grep -Po '(?<=dev\s)\w+' | cut -f1 -d ' ')
+export HOST_IP=$(ifconfig ${LANIFACE} | awk '/inet / {print $2}')
+echo 'My local IP address is '${HOST_IP}
 
 export ROS_HOSTNAME=${HOST_IP} 
 echo export ROS_HOSTNAME=${HOST_IP} >> ~/.bashrc
