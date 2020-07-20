@@ -11,8 +11,8 @@ echo export ROS_HOSTNAME=${HOST_IP} >> ~/.bashrc
 
 # Default ROS master port is 11311
 #  - You could use 80 if accessing over the internet: roscore -p 80
-export ROS_MASTER_URI=http://${HOST_IP}:11311
-echo export ROS_MASTER_URI=http://${HOST_IP}:11311 >> ~/.bashrc
+export ROS_MASTER_URI=http://${HOST_IP}:80
+echo export ROS_MASTER_URI=http://${HOST_IP}:80 >> ~/.bashrc
 
 # Source ROS configuration
 echo "Sourcing ROS Melodic configuration..."
@@ -33,6 +33,5 @@ echo source /ros/catkin_ws/devel/setup.bash >> ~/.bashrc
 echo -e 'ROS_HOSTNAME= ' $ROS_HOSTNAME
 echo -e 'ROS_MASTER_URI= ' $ROS_MASTER_URI
 echo "Starting roscore..."
-#roscore -p 80 &
-#sleep 3
-bash
+roscore -p 80 &
+sleep 3
