@@ -33,5 +33,6 @@ echo source /ros/catkin_ws/devel/setup.bash >> ~/.bashrc
 echo -e 'ROS_HOSTNAME= ' $ROS_HOSTNAME
 echo -e 'ROS_MASTER_URI= ' $ROS_MASTER_URI
 echo "Starting roscore..."
-roscore -p 80 &
-sleep 3
+#roscore -p 80 &
+#sleep 3
+bash
