@@ -2,11 +2,15 @@
 # Get the source code for the V4L utilities
     git clone git://git.linuxtv.org/v4l-utils.git
     cd v4l-utils
+    (sudo apt-get install libgtk2.0-dev libjpeg9-dev)
+    (./bootstap.sh) # https://didier.io/post/raspberrypi-camera
+    
 
 ## Install some packages needed to build it
     sudo apt-get install autoconf gettext libtool libjpeg62-dev
 
-## Configure and build it.
+## Configure and build it
+    
     autoreconf -vfi
     ./configure
     make
@@ -37,3 +41,20 @@
 
 # A MORE ADVANCED EXAMPLE
 ## https://didier.io/post/raspberrypi-camera
+
+## Install v4l
+
+## Install x264
+
+## Install ffmpeg with libfaac
+
+## Enable /dev/video0
+`$ sudo modprobe bcm2835-v4l2`
+
+## Disable the red LED
+Update `/boot/config.txt` with:
+>`disable_camera_led=1`
+
+And reboot (`sudo reboot`)
+
+## Basic HTTP Live stream

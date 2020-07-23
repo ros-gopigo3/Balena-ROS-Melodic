@@ -31,12 +31,13 @@ echo "Sourcing workspace configuration..."
 source /ros/catkin_ws/devel/setup.bash
 echo source /ros/catkin_ws/devel/setup.bash >> ~/.bashrc
 
-#sleep infinity
-
+# Log to console
 echo 'My local IP address is '${HOST_IP}
 echo -e 'ROS_HOSTNAME= ' $ROS_HOSTNAME
 echo -e 'ROS_MASTER_URI= ' $ROS_MASTER_URI
 
+# Enable drive for Pi camera
+modprobe bcm2835-v4l2
 
 ## UNCOMMENT TO LAUNCH ROS & BE THE DOCKER PROCESS
 # Sample roslaunch
