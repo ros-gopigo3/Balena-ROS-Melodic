@@ -1,5 +1,6 @@
 This is `gopigo3` branch
 ------------------------
+See README inside `drivers` folder for the details of how to make work Pi camera and sensors/actuators within Docker/ Balena.
 
 # Current scope of this repository
 
