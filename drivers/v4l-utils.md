@@ -1,3 +1,8 @@
+# UBUNTU 20.04
+## This makes raspistill to provide the common output when invoqued
+sudo apt-get install -y v4l-utils
+
+# UBUNTU 18.04
 # SOURCE https://www.ics.com/blog/raspberry-pi-camera-module
 # Get the source code for the V4L utilities
     git clone git://git.linuxtv.org/v4l-utils.git
