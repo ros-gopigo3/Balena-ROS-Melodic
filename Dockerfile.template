@@ -27,6 +27,15 @@ RUN apt-get install -y ros-melodic-camera-info-manager ros-melodic-diagnostic-up
 RUN mkdir -p /etc/ros/rosdep/sources.list.d/
 RUN echo 'yaml https://raw.githubusercontent.com/UbiquityRobotics/rosdep/master/raspberry-pi.yaml' > /etc/ros/rosdep/sources.list.d/30-ubiquity.list
 
+########################################
+# ADDITIONS WHEN ROS NOETIC IS RELEASED
+##  It will work with Python3
+## -------------------------------------
+RUN apt-get install -y phyton3-rosdep
+RUN apt-get install -y v4l-utils  # Pi camera drivers. Remember to set start_x=1 in /boot/firmware/config.txt
+                                      # - Also add: hdmi_force_hotplug=1
+########################################
+
 # Ensure that you are communicating to the host OS systemd and not the systemd in your container
 # https://www.balena.io/docs/learn/develop/runtime/
 ENV DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket

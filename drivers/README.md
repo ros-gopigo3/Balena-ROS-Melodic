@@ -4,10 +4,10 @@ https://www.balena.io/docs/learn/develop/hardware/i2c-and-spi/#raspberry-pi-came
 
 Setup these Balena variables in the **fleet configuration** of the app (BalenaOS 1.16.0 and newer):
 ```
-RESIN_HOST_CONFIG_gpu_mem to 128
-RESIN_HOST_CONFIG_start_x to 1
+BALENA_HOST_CONFIG_gpu_mem to 128
+BALENA_HOST_CONFIG_start_x to 1
 ```
-Or directly within the Docker container in `/mnt/boot/config.txt`:
+Or directly within the Docker host in `/mnt/boot/config.txt`:
 ```
 gpu_mem=128
 start_x=1
