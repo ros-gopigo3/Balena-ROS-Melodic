@@ -1,3 +1,21 @@
+# Ubuntu 20.04
+`sudo apt-get install -y v4l-utils`
+
+Check if device `/dev/video0` is created. If not, do it with this command:
+`$ modprobe bcm2835-v4l2`
+
+Reboot, then:
+
+Test: `$ v4l2-ctl --stream-mmap=3 --stream-count=1 --stream-to=somefile.jpg`
+
+**WARNING:** *Not sure if this will make it work with ROS, since `raspistill` throws an error because`/dev/vhicq` is not detected.*
+  - After reboot, `/dev/video0` as well as `/dev/vhicq` are present and `raspistill` works Ok
+  - Also after 
+  - If some permission error arises, add `pi` user to `video` group so that you're able to access the Pi camera without sudo:
+        >`$ sudo usermod -a -G video pi`
+     - It doesn't work. Alternative: change ownership of video device:
+        >`$ sudo chown pi /dev/video0`
+
 # SOURCE https://www.ics.com/blog/raspberry-pi-camera-module
 # Get the source code for the V4L utilities
     git clone git://git.linuxtv.org/v4l-utils.git
