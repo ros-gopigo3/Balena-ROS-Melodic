@@ -1,37 +1,30 @@
-FROM balenalib/%%BALENA_MACHINE_NAME%%-ubuntu:bionic
+FROM balenalib/%%BALENA_MACHINE_NAME%%-ubuntu:focal
 
-RUN export DEBIAN_FRONTEND=noninteractive
+# Guide https://varhowto.com/install-ros-noetic-ubuntu-20-04/
 
-RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu bionic main" > /etc/apt/sources.list.d/ros-latest.list'
+RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu focal main" | sudo tee /etc/apt/sources.list.d/ros-focal.list
+
 RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 
 RUN ln -fs /usr/share/zoneinfo/Europe/Madrid /etc/localtime
 RUN apt-get update && apt-get install -y tzdata
 RUN dpkg-reconfigure --frontend noninteractive tzdata
 
-#apt-get install -y apt-utils
-
 # ROS installation
-RUN apt-get install -y python-rosinstall python-rosinstall-generator python-wstool build-essential
-RUN apt-get install -y python-rosdep
-RUN apt-get install -y ros-melodic-ros-base
+RUN apt-get install -y ros-noetic-ros-base
 
 # Install catkin tools
 # RUN apt-get install -y python-catkin-tools
 
 # Install needed ROS packages dependencies
-RUN apt-get install -y ros-melodic-image-transport-plugins
-RUN apt-get install -y ros-melodic-camera-info-manager ros-melodic-diagnostic-updater
-
-# Some dependencies are not recognized by ROS, required for raspicam_node
-RUN mkdir -p /etc/ros/rosdep/sources.list.d/
-RUN echo 'yaml https://raw.githubusercontent.com/UbiquityRobotics/rosdep/master/raspberry-pi.yaml' > /etc/ros/rosdep/sources.list.d/30-ubiquity.list
+RUN apt-get install -y ros-noetic-image-transport-plugins
+RUN apt-get install -y ros-noetic-camera-info-manager ros-noetic-diagnostic-updater
 
 ########################################
 # ADDITIONS WHEN ROS NOETIC IS RELEASED
 ##  It will work with Python3
 ## -------------------------------------
-RUN apt-get install -y phyton3-rosdep
+RUN apt-get install -y python3-rosdep
 RUN apt-get install -y v4l-utils  # Pi camera drivers. Remember to set start_x=1 in /boot/firmware/config.txt
                                       # - Also add: hdmi_force_hotplug=1
 ########################################
@@ -47,7 +40,11 @@ WORKDIR /ros/catkin_ws
 
 RUN rosdep init && rosdep update
 
-RUN echo source /opt/ros/melodic/setup.bash >> ~/.bashrc
+# Some dependencies are not recognized by ROS, required for raspicam_node
+# RUN mkdir -p /etc/ros/rosdep/sources.list.d/
+RUN echo 'yaml https://raw.githubusercontent.com/UbiquityRobotics/rosdep/master/raspberry-pi.yaml' > /etc/ros/rosdep/sources.list.d/30-ubiquity.list
+
+RUN echo source /opt/ros/noetic/setup.bash >> ~/.bashrc
 
 COPY start.sh /ros/
 

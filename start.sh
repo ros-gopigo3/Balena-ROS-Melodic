@@ -15,18 +15,32 @@ export ROS_MASTER_URI=http://${HOST_IP}:11311
 echo export ROS_MASTER_URI=http://${HOST_IP}:11311 >> ~/.bashrc
 
 # Source ROS configuration
-echo "Sourcing ROS Melodic configuration..."
-source /opt/ros/melodic/setup.bash
+echo "Sourcing ROS noetic configuration..."
+source /opt/ros/noetic/setup.bash
 
 # Create workspace
 cd /ros/catkin_ws/src
 catkin_init_workspace
 
+# Clone the code # ONCE IT'S REMOVED THE LOCAL COPY IN THIS REPO
+#git clone https://github.com/ros-gopigo3/gopigo3-pi-code
+
 cd /ros/catkin_ws
 # This line install the raspicam_node dependencies
-rosdep install --from-paths src --ignore-src --rosdistro=melodic -y
+rosdep install --from-paths src --ignore-src --rosdistro=noetic -y
 # Build workspace
 catkin_make
+
+# RASPICAM ERROR
+
+# /usr/bin/ld: /usr/lib/gcc/aarch64-linux-gnu/9/../../../aarch64-linux-# gnu/Scrt1.o: in function `_start':
+# (.text+0x18): undefined reference to `main'
+# /usr/bin/ld: (.text+0x1c): undefined reference to `main'
+# collect2: error: ld returned 1 exit status
+# make[2]: *** [gopigo3-pi-code/pkg_raspicam_node/CMakeFiles/raspicam_node.dir/build.make:186: /home/pi/catkin_ws/devel/lib/raspicam_node/raspicam_node] Error 1
+# make[1]: *** [CMakeFiles/Makefile2:1756: gopigo3-pi-code/pkg_raspicam_node/CMakeFiles/raspicam_node.dir/all] Error 2
+# make: *** [Makefile:141: all] Error 2
+
 echo "Sourcing workspace configuration..."
 source /ros/catkin_ws/devel/setup.bash
 echo source /ros/catkin_ws/devel/setup.bash >> ~/.bashrc
